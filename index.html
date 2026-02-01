@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>My Diaa My Batta 🦆🐰</title>
+  <style>
+    body {
+      background: #e9f7ef; /* light green */
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding-top: 50px;
+      overflow-x: hidden;
+    }
+
+    .card {
+      background: white;
+      border-radius: 25px;
+      padding: 35px;
+      max-width: 420px;
+      margin: auto;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+      position: relative;
+    }
+
+    h1 {
+      color: #6abf69;
+      font-size: 28px;
+      margin-bottom: 15px;
+    }
+
+    p {
+      font-size: 18px;
+      line-height: 1.6;
+      color: #333;
+      margin-bottom: 15px;
+    }
+
+    .heart {
+      font-size: 20px;
+      color: #4f9d69;
+      margin-top: 15px;
+    }
+
+    .twinkle {
+      color: #f4a261;
+      margin-right: 5px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background: #6abf69;
+      border: none;
+      border-radius: 15px;
+      color: white;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    button:hover {
+      background: #57a05a;
+    }
+
+    .hug-container {
+      margin-top: 20px;
+    }
+
+    .hug-img {
+      width: 200px;
+      height: auto;
+      margin-bottom: 20px;
+      animation: sway 1.5s infinite alternate;
+    }
+
+    @keyframes sway {
+      0% { transform: translateX(0px) translateY(0px); }
+      50% { transform: translateX(5px) translateY(2px); }
+      100% { transform: translateX(0px) translateY(0px); }
+    }
+
+    /* Floating hearts */
+    .floating-heart {
+      position: absolute;
+      font-size: 24px;
+      color: #e76f51;
+      animation: float 3s linear infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(-150px) rotate(360deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="hug-container">
+      <img src="hugging-duck-bunny.gif" alt="Duck and Bunny Hugging" class="hug-img">
+    </div>
+
+    <div id="message-area"></div>
+    <button id="next-btn">Next</button>
+
+    <div id="final-audio"></div>
+  </div>
+
+  <script>
+    const messages = [
+      "✨ You’re my peace, and the soul I live by.",
+      "✨ Your existence lights up my world.",
+      "✨ I could never survive without you.",
+      "✨ Thank you for everything, my kind-hearted baby. I love you 🥺🤍",
+      "✨ I WILL LOVE YOU TILL THE END OF TIME 💖💖💖"
+    ];
+
+    const messageArea = document.getElementById('message-area');
+    const nextBtn = document.getElementById('next-btn');
+    const hugContainer = document.querySelector('.hug-container');
+    const finalAudio = document.getElementById('final-audio');
+    let index = 0;
+
+    function showMessage(msg) {
+      messageArea.innerHTML = '';
+      const twinkleSpan = document.createElement('span');
+      twinkleSpan.className = 'twinkle';
+      twinkleSpan.textContent = '✨';
+      messageArea.appendChild(twinkleSpan);
+
+      const p = document.createElement('p');
+      p.textContent = msg;
+      messageArea.appendChild(p);
+    }
+
+    nextBtn.addEventListener('click', () => {
+      if(index < messages.length){
+        showMessage(messages[index]);
+        index++;
+        // When we reach the last message, add music and floating hearts
+        if(index === messages.length){
+          nextBtn.style.display = 'none';
+          // Add music
+          const audio = document.createElement('audio');
+          audio.controls = true;
+          audio.autoplay = true;
+          audio.loop = true;
+          const source = document.createElement('source');
+          source.src = 'AtMyWorst-PinkSweats.mp3';
+          source.type = 'audio/mpeg';
+          audio.appendChild(source);
+          finalAudio.appendChild(audio);
+          // Floating hearts
+          for(let i=0; i<10; i++){
+            const heart = document.createElement('div');
+            heart.className = 'floating-heart';
+            heart.style.left = Math.random()*80 + '%';
+            heart.style.animationDuration = 2 + Math.random()*2 + 's';
+            heart.textContent = '💖';
+            hugContainer.appendChild(heart);
+          }
+        }
+      }
+    });
+
+    // Show first message initially
+    showMessage(messages[0]);
+    index++;
+  </script>
+</body>
+</html>
