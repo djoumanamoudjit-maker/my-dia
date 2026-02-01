@@ -101,7 +101,6 @@
     <div id="message-area"></div>
     <button id="next-btn">Next</button>
 
-    <div id="final-audio"></div>
   </div>
 
   <script>
@@ -116,7 +115,6 @@
     const messageArea = document.getElementById('message-area');
     const nextBtn = document.getElementById('next-btn');
     const hugContainer = document.querySelector('.hug-container');
-    const finalAudio = document.getElementById('final-audio');
     let index = 0;
 
     function showMessage(msg) {
@@ -135,19 +133,19 @@
       if(index < messages.length){
         showMessage(messages[index]);
         index++;
-        // When we reach the last message, add music and floating hearts
+
+        // Last message triggers invisible music + floating hearts
         if(index === messages.length){
           nextBtn.style.display = 'none';
-          // Add music
-          const audio = document.createElement('audio');
-          audio.controls = true;
-          audio.autoplay = true;
+
+          // Invisible autoplay music
+          const audio = new Audio('AtMyWorst-PinkSweats.mp3');
           audio.loop = true;
-          const source = document.createElement('source');
-          source.src = 'AtMyWorst-PinkSweats.mp3';
-          source.type = 'audio/mpeg';
-          audio.appendChild(source);
-          finalAudio.appendChild(audio);
+          audio.volume = 0.5; // adjust volume if needed
+          audio.play().catch(() => {
+            console.log("Music requires user interaction to play.");
+          });
+
           // Floating hearts
           for(let i=0; i<10; i++){
             const heart = document.createElement('div');
